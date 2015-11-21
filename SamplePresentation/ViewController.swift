@@ -32,7 +32,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // MARK: UIViewControllerTransitioningDelegate
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
         return CustomPresentationController(presentedViewController: presented, presentingViewController: presenting)
     }
     
@@ -51,7 +51,7 @@ class CustomPresentationController: UIPresentationController {
     var overlay: UIView!
     
     override func presentationTransitionWillBegin() {
-        let containerView = self.containerView
+        let containerView = self.containerView!
         let presented = self.presentedViewController
         
         self.overlay = UIView(frame: containerView.bounds)
@@ -85,7 +85,7 @@ class CustomPresentationController: UIPresentationController {
     
     override func frameOfPresentedViewInContainerView() -> CGRect {
         var presentedViewFrame = CGRectZero
-        let containerBounds = self.containerView.bounds
+        let containerBounds = containerView!.bounds
         presentedViewFrame.size = self.sizeForChildContentContainer(self.presentedViewController, withParentContainerSize: containerBounds.size)
         presentedViewFrame.origin.x = containerBounds.size.width - presentedViewFrame.size.width
         presentedViewFrame.origin.y = containerBounds.size.height - presentedViewFrame.size.height
@@ -93,8 +93,8 @@ class CustomPresentationController: UIPresentationController {
     }
     
     override func containerViewWillLayoutSubviews() {
-        overlay.frame = self.containerView.bounds
-        self.presentedView().frame = self.frameOfPresentedViewInContainerView()
+        overlay.frame = containerView!.bounds
+        self.presentedView()!.frame = self.frameOfPresentedViewInContainerView()
     }
     
     override func containerViewDidLayoutSubviews() {
@@ -114,7 +114,7 @@ class CustomAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioni
         self.isPresent = isPresent
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.4
     }
     
