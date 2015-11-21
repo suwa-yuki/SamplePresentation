@@ -52,7 +52,6 @@ class CustomPresentationController: UIPresentationController {
     
     override func presentationTransitionWillBegin() {
         let containerView = self.containerView!
-        let presented = self.presentedViewController
         
         self.overlay = UIView(frame: containerView.bounds)
         self.overlay.gestureRecognizers = [UITapGestureRecognizer(target: self, action: "overlayDidTouch:")]
