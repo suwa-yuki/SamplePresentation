@@ -39,7 +39,7 @@ class TableViewController: UITableViewController {
         return 0
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     }
     
     @IBAction func closeButtonDidTouch(sender: AnyObject) {
